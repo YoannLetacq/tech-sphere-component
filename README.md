@@ -82,7 +82,6 @@ src/ParticleSphere/
   particlesShader.js     vertex + fragment GLSL
   useFibonacciSphere.js  anchor positions hook (golden-ratio spiral)
   useLogoPoints.js       loads + samples all 8 logo clouds
-  useCardinalHover.js    screen-space zone detection with hysteresis (unused in auto-cycle mode)
   logoLoaders.js         SVG → point-cloud rasterization pipeline
   constants.js           every tunable constant
   math.js                Fibonacci, nearest-neighbor match, easings
