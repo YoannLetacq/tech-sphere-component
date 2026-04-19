@@ -1,7 +1,7 @@
 /**
  * <ParticleSphere /> — public component.
  * Wraps a single <Canvas> with OrbitControls, ResizeObserver, hint overlay,
- * and plugs <Particles> into the useCardinalHover state machine.
+ * and drives <Particles> via the cardinal auto-cycle state machine.
  *
  * Props:
  *   particleCount   — default DEFAULT_PARTICLE_COUNT (×0.6 on <640px screens)
@@ -12,7 +12,7 @@
  *   showHints       — CSS-only corner hint labels
  */
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import Particles from './Particles.jsx';
@@ -167,20 +167,6 @@ export default function ParticleSphere({
     };
   }, []);
 
-  // Drag tracking for auto-rotate resume timer.
-  const isDraggingRef = useRef(false);
-  const dragStoppedAtRef = useRef(0);
-  const isDragging = () => isDraggingRef.current;
-  const getDragStoppedAt = () => dragStoppedAtRef.current;
-
-  const onStart = () => {
-    isDraggingRef.current = true;
-  };
-  const onEnd = () => {
-    isDraggingRef.current = false;
-    dragStoppedAtRef.current = performance.now();
-  };
-
   const wrapperStyle = useMemo(
     () => ({
       position: 'relative',
@@ -209,8 +195,6 @@ export default function ParticleSphere({
           enableZoom={false}
           enablePan={false}
           enableDamping
-          onStart={onStart}
-          onEnd={onEnd}
           makeDefault
         />
         <Particles
@@ -220,8 +204,6 @@ export default function ParticleSphere({
           logoClouds={clouds}
           disabled={disabled}
           reducedMotion={reducedMotion}
-          isDragging={isDragging}
-          getDragStoppedAt={getDragStoppedAt}
         />
       </Canvas>
       {showHints && <HintOverlay />}

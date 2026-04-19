@@ -1,4 +1,3 @@
-import React from 'react';
 import ParticleSphere from './src/ParticleSphere/index.jsx';
 
 export default function App() {

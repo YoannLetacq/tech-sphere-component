@@ -16,14 +16,6 @@ export const IDLE_NOISE_AMPLITUDE = 0.015;
 export const IDLE_NOISE_FREQUENCY = 0.3; // Hz
 export const MORPH_NOISE_DAMP = 0.3;      // noise multiplier on morphing particles
 
-// Sphere auto-rotation
-export const IDLE_ROTATION_SPEED = 0.08;  // rad/s
-export const AUTO_ROTATE_RESUME_MS = 2000;
-
-// Hover hysteresis (radii multipliers)
-export const ACTIVATION_THRESHOLD = 0.55;
-export const DEACTIVATION_THRESHOLD = 0.75;
-
 // Morph timing (ms)
 export const AUTO_CYCLE_HOLD_MS = 1500;
 export const AUTO_CYCLE_GAP_MS = 400;
@@ -33,7 +25,6 @@ export const COLOR_TRANSITION_START = 0.92;
 export const REVERSE_DURATION = 700;
 export const REVERSE_DISPLACED_DURATION = 500;
 export const REVERSE_COLOR_DURATION = 500;
-export const DEACTIVATION_DELAY = 2000;
 
 // Reduced-motion overrides
 export const REDUCED_MOTION_TWEEN_MS = 300;

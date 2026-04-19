@@ -8,18 +8,15 @@
  * React state is NEVER used for positions. Only BufferAttribute.needsUpdate.
  */
 
-import React, { useMemo, useRef, useEffect } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { createNoise3D } from 'simplex-noise';
 
 import {
-  SPHERE_RADIUS,
   IDLE_NOISE_AMPLITUDE,
   IDLE_NOISE_FREQUENCY,
   MORPH_NOISE_DAMP,
-  IDLE_ROTATION_SPEED,
-  AUTO_ROTATE_RESUME_MS,
   MORPH_DURATION,
   COLOR_TRANSITION_DURATION,
   COLOR_TRANSITION_START,
@@ -74,12 +71,8 @@ export default function Particles({
   logoClouds,
   disabled,
   reducedMotion,
-  isDragging,
-  getDragStoppedAt,
 }) {
   const anchors = useFibonacciSphere(count, radius);
-  const pointsRef = useRef();
-  const materialRef = useRef();
   const geomRef = useRef();
 
   // Typed arrays — live outside React state.
@@ -345,7 +338,7 @@ export default function Particles({
   }, [activeZone]);
 
   // Frame loop
-  useFrame((_, deltaSec) => {
+  useFrame(() => {
     if (disabled) return;
     const now = performance.now();
 
@@ -364,7 +357,6 @@ export default function Particles({
 
     const pos = state.positions;
     const col = state.colors;
-    const base = hexToRgb(BASELINE_COLOR_HEX);
 
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
@@ -457,10 +449,9 @@ export default function Particles({
   });
 
   return (
-    <points ref={(r) => { pointsRef.current = r; groupRef.current = r; }}>
+    <points ref={groupRef}>
       <bufferGeometry ref={geomRef} />
       <shaderMaterial
-        ref={materialRef}
         vertexShader={VERTEX_SHADER}
         fragmentShader={FRAGMENT_SHADER}
         uniforms={{
